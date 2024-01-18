@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+</head>
+<body>
+    <div id="timer"></div>
+
+    <script>
+        // Datum und Uhrzeit für das Countdown-Ziel setzen
+        var targetDate = new Date("2024-05-04T12:00:00");
+
+        // Funktion zur Aktualisierung des Timers
+        function updateTimer() {
+            var currentDate = new Date(); // Aktuelle Zeit
+            var timeRemaining = targetDate - currentDate; // Verbleibende Zeit in Millisekunden
+
+            // Berechnung von Tagen, Stunden, Minuten und Sekunden
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            // Timer-Element auswählen
+            var timerElement = document.getElementById("timer");
+
+            // Text für Tage, Stunden, Minuten und Sekunden hinzufügen
+            timerElement.innerHTML = days + " Tage " + hours + " Std " + minutes + " Min " + seconds + " Sek ";
+
+            // Wenn das Ziel erreicht ist, Timer stoppen
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                timerElement.innerHTML = "Countdown abgelaufen!";
+            }
+        }
+
+        // Timer bei Seitenaufruf starten und alle 1 Sekunde aktualisieren
+        var timerInterval = setInterval(updateTimer, 1000);
+
+        // Initialen Timer-Update aufrufen, um Verzögerung beim Laden der Seite zu vermeiden
+        updateTimer();
+    </script>
+</body>
+</html>
